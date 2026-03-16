@@ -86,17 +86,17 @@
         <!-- Carrossel de Fotos -->
         <div class="carousel-container">
             <div class="carousel-track">
-                <img class="carousel-slide" src="../virtual-presente/WhatsApp Image 2026-01-17 at 12.30.31.jpeg" alt="Nós dois" width="400" height="400">
-                <img class="carousel-slide" src="../virtual-presente/WhatsApp Image 2026-01-17 at 12.30.31 (1).jpeg" alt="Nós dois" width="80" height="80">
-                <img class="carousel-slide" src="../virtual-presente/WhatsApp Image 2026-01-17 at 12.30.31 (2).jpeg" alt="Nós dois" width="80" height="80">
-                <img class="carousel-slide" src="../virtual-presente/WhatsApp Image 2026-01-17 at 12.30.31 (3).jpeg" alt="Nós dois" width="80" height="80">
+                <img class="carousel-slide" src="../virtual-presente/WhatsApp Image 2026-03-15 at 21.38.32.jpeg" alt="Nós dois" width="400" height="400">
+                <img class="carousel-slide" src="../virtual-presente/WhatsApp Image 2026-03-15 at 21.38.32 (1).jpeg" alt="Nós dois" width="80" height="80">
+                <img class="carousel-slide" src="../virtual-presente/WhatsApp Image 2026-03-15 at 21.38.31.jpeg" alt="Nós dois" width="80" height="80">
+                <img class="carousel-slide" src="../virtual-presente/WhatsApp Image 2026-03-15 at 21.38.32 (2).jpeg" alt="Nós dois" width="80" height="80">
             </div>
         </div>
 
         <!-- Contador -->
         <div class="contador">
             <h2>Eu te amo há:</h2>
-            <p id="tempo_de_namoro"></p>
+            <div id="contador"></div>
         </div>
 
         <!-- Corações -->
@@ -137,27 +137,42 @@
         
         setInterval(criarCoracao, 300);
 
-        //Contador //
+       //contador //
+       function atualizarContador() {
+  const inicio = new Date(2025, 4, 9, 0, 0, 0); // 9 de maio de 2025
+  const agora = new Date();
 
-        // -------- CONTADOR --------
-    function atualizarContador() {
-        const inicio = new Date("2025-05-09T00:00:00"); // <<< muda pra sua data
-        const agora = new Date();
-        const diff = agora - inicio;
+  let anos = agora.getFullYear() - inicio.getFullYear();
+  let meses = agora.getMonth() - inicio.getMonth();
+  let dias = agora.getDate() - inicio.getDate();
 
-        const segundos = Math.floor(diff / 1000);
-        const minutos = Math.floor(segundos / 60);
-        const horas = Math.floor(minutos / 60);
-        const dias = Math.floor(horas / 24);
-        const meses = Math.floor(dias / 30);
+  if (dias < 0) {
+    meses--;
+    const ultimoMes = new Date(agora.getFullYear(), agora.getMonth(), 0);
+    dias += ultimoMes.getDate();
+  }
 
-    document.getElementById("tempo_de_namoro").innerText =
-        `${meses} meses, ${dias % 30} dias, ${horas % 24}h ${minutos % 60}m ${segundos % 60}s`;
+  if (meses < 0) {
+    anos--;
+    meses += 12;
+  }
+
+  const diff = agora - inicio;
+
+  const horas = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const minutos = Math.floor((diff / (1000 * 60)) % 60);
+  const segundos = Math.floor((diff / 1000) % 60);
+
+  document.getElementById("contador").innerHTML =
+    anos + " anos, " +
+    meses + " meses, " +
+    dias + " dias, " +
+    horas + " horas, " +
+    minutos + " minutos e " +
+    segundos + " segundos";
 }
 
 setInterval(atualizarContador, 1000);
-atualizarContador();
-
     </script>
 </body>
 </html>
